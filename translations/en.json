@@ -1,0 +1,77 @@
+{
+  "localeLayoutMeta": {
+    "title": "Quo - Discover, Share, and Enjoy Literature",
+    "description": "Explore, connect, and share your favorite quotes and poems with like-minded literature enthusiasts on Quo."
+  },
+  "authentication": {
+    "loginLocaleLayoutMeta": {
+      "title": "Login - Discover, Share, and Enjoy Literature",
+      "description": "Access your account securely on Quo, Explore, connect, and share your favorite quotes and poems with like-minded literature enthusiasts on Quo."
+    },
+    "registerLocaleLayoutMeta": {
+      "title": "Sign Up - Discover, Share, and Enjoy Literature",
+      "description": "Explore, connect, and share your favorite quotes and poems with like-minded literature enthusiasts on Quo."
+    }
+  },
+  "general": {
+    "home": "Home",
+    "friends": "Friends",
+    "feeds": "Feeds",
+    "feed": "Feed",
+    "notification": "Notification",
+    "notifications": "Notifications",
+    "findFriends": "Find friends...",
+    "login": "Login",
+    "welcomeToQuo": "Welcome to Quo!",
+    "quoDialogMessage": "Please enter a username to help identify you on the platform and connect with the community.",
+    "usernameLabel": "Username",
+    "usernamePlaceholder": "Enter your username here",
+    "submitButton": "Continue",
+    "welcome": "Welcome",
+    "myAccount": "My Account",
+    "settings": "Settings",
+    "logout": "Log Out",
+    "continueAs": "Continue as",
+    "detected": "Detected",
+    "whatsYourVerse": "Share a verse...",
+    "successful": "Successful",
+    "post": "Post",
+    "attachMedia": "Attach Media",
+    "useMicrophone": "Use Microphone",
+    "newQuo": "New Quo",
+    "search": "Search",
+    "matches": "Matches",
+    "noResult": "No results found",
+    "suggestions": "Suggestions",
+    "follow": "Follow",
+    "requestSent": "Request Sent",
+    "following": "Following",
+    "requestWithdrawn": "Request Withdrawn",
+    "blocked": "Blocked",
+    "unblocked": "Unblocked",
+    "isRequestingToFollow": "is requesting to follow you",
+    "hasAcceptedYourRequest": "accepted your request",
+    "accept": "Accept",
+    "reject": "Reject",
+    "noNewNotificationsTitle": "No New Notifications",
+    "noNewNotificationsDescription": "You're all caught up! There are no new notifications right now.",
+    "shareWithPublic": "Share with Public",
+    "shareWithFriendsOnly": "Share with Friends only",
+    "likes": "Likes",
+    "comments": "Comments",
+    "followsYou": "Follows you",
+    "unfollowed": "Unfollowed",
+    "posts": "Posts",
+    "statusUpdated": "Status updated",
+    "update": "Update",
+    "youCanMentionOthers": "You can @mention other users.",
+    "shareSomethingWithTheWorld": "Share something with the world...",
+    "bio": "Bio",
+    "status":"Status"
+  },
+  "errors": {
+    "genericError": "An error occurred. Please try again later.",
+    "invalidUserName": "Username Already taken. Try ",
+    "requiredField": "Field is required"
+  }
+}
