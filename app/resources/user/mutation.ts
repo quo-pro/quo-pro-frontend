@@ -16,7 +16,11 @@ async function updateUser({
 }
 
 async function blockUser(userToBlock: string) {
-  return apiHttp.post<IUser>(`${apiRoutes.users}/${userToBlock}/block`);
+  return apiHttp.post<IUser>(`${apiRoutes.users}/${userToBlock}/block`, {});
+}
+
+async function unblockUser(userToBlock: string) {
+  return apiHttp.delete<IUser>(`${apiRoutes.users}/${userToBlock}/unblock`);
 }
 
 async function unfriendUser(friendId: string) {
@@ -44,6 +48,18 @@ export const useBlockUser = () => {
     },
   });
 };
+
+export const useUnblockUser = () => {
+  return useMutation({
+    mutationFn: unblockUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: userQueryKeys.all,
+      });
+    },
+  });
+};
+
 
 export const useUnFriendUser = () => {
   return useMutation({

@@ -1,11 +1,10 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import { IUser } from '@quo-pro/commons';
 import { useTranslations } from 'next-intl';
 import { ProfilePhoto } from '@components/general/ProfilePhoto';
 import { Button } from '@components/ui/button';
-import { useBlockUser, useUnFriendUser } from '@app/resources/user/mutation';
+import { useUnFriendUser, useUnblockUser } from '@app/resources/user/mutation';
 import { Separator } from '@components/ui/separator';
-import { isUtf8 } from 'buffer';
 import { toast } from '@components/ui/use-toast';
 import Link from 'next/link';
 import NAVIGATION from '@app/navigations/navigation';
@@ -18,42 +17,49 @@ type TUser = IUser & {
     isFollowing: boolean;
     isBlocked: string;
 }
-
 const FriendResultItem = forwardRef<HTMLDivElement, ItemProps>(({ isLast, ...props }, ref) => {
     const user = props as TUser;
     const translate = useTranslations("general");
     const tErrors = useTranslations("errors");
-    const { mutateAsync: blockUser } = useBlockUser();
+    const { mutateAsync: unblockUser } = useUnblockUser();
     const { mutateAsync: unfriendUser } = useUnFriendUser();
 
+    const onUnblockUser = async () => {
+        try {
+            const response = await unblockUser(props._id);
 
-    // const onBlockUser = async () => {
-    //     try {
-    //         const response = await blockUser(props.);
-
-    //         if (response?.status === 401) {
-    //             toast({ title: tErrors('error'), description: tErrors('genericError'), className: 'bg-white', duration: 2000 });
-    //         } else {
-    //             toast({
-    //                 title: props.status === 'BLOCKED' ? translate('unblocked') : translate('blocked'),
-    //                 duration: 1000,
-    //             });
-    //         }
-    //     } catch (error) {
-    //         toast({ title: tErrors('genericError'), className: 'bg-white', duration: 2000 });
-    //     }
-    // };
-
-    const onUnfollow = async () => {
-        if (!user.isFollowing) {
-            return
+            if (response?.status === 401) {
+                toast({
+                    title: tErrors('error'),
+                    description: tErrors('genericError'),
+                    className: 'bg-white',
+                    duration: 2000
+                });
+            } else {
+                toast({
+                    title: translate('unblocked'),
+                    duration: 1000,
+                });
+            }
+        } catch (error) {
+            toast({
+                title: tErrors('genericError'),
+                className: 'bg-white',
+                duration: 2000
+            });
         }
+    };
 
+    const onUnfriendUser = async () => {
         try {
             const response = await unfriendUser(user._id);
 
             if (response?.status === 401) {
-                toast({ title: tErrors('error'), description: tErrors('genericError'), className: 'bg-white', duration: 2000 });
+                toast({
+                    title: tErrors('error'),
+                    description: tErrors('genericError'),
+                    className: 'bg-white', duration: 2000
+                });
             } else {
                 toast({
                     title: translate('unfollowed'),
@@ -61,9 +67,46 @@ const FriendResultItem = forwardRef<HTMLDivElement, ItemProps>(({ isLast, ...pro
                 });
             }
         } catch (error) {
-            toast({ title: tErrors('genericError'), className: 'bg-white', duration: 2000 });
+            toast({
+                title: tErrors('genericError'),
+                className: 'bg-white',
+                duration: 2000
+            });
+        }
+    };
+
+    const onButtonClick = async (e: any) => {
+        e.stopPropagation();
+        e.preventDefault();
+
+        if (user.isBlocked) {
+            await onUnblockUser();
+            return;
+        }
+
+        if (user.isFollowing) {
+            await onUnfriendUser();
+            return;
         }
     }
+
+    const buttonTranslation = useMemo(() => {
+        if (user.isBlocked) {
+            return translate("blocked")
+        }
+
+        if (user.isFollower && user.isFollowing) {
+            return translate("following")
+        }
+
+        if (user.isFollower) {
+            return translate("followsYou")
+        }
+
+        if (user.isFollowing) {
+            return translate("following")
+        }
+    }, [user.isFollower, user.isFollowing])
 
     return (
         <>
@@ -78,11 +121,9 @@ const FriendResultItem = forwardRef<HTMLDivElement, ItemProps>(({ isLast, ...pro
                     </div>
 
                     <Button
-                        onClick={onUnfollow}
+                        onClick={onButtonClick}
                         className='rounded-full' size="sm" variant="outline">
-                        {user.isBlocked && translate("blocked")}
-                        {user.isFollower && translate("followsYou")}
-                        {user.isFollowing && translate("following")}
+                        {buttonTranslation}
                     </Button>
                 </div>
             </Link>

@@ -29,6 +29,7 @@ export const apiRoutes = {
   friends: '/friends',
   friendRequests: '/friend-requests',
   notifications: '/notifications',
+  flaggedContents: '/flagged-contents',
   files: '/files',
   posts: '/posts',
   publicPosts: '/posts/public',

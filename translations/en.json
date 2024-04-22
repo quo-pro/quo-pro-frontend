@@ -67,7 +67,10 @@
     "youCanMentionOthers": "You can @mention other users.",
     "shareSomethingWithTheWorld": "Share something with the world...",
     "bio": "Bio",
-    "status":"Status"
+    "status": "Status",
+    "block": "Block",
+    "flagAsInappropriate": "Flag as inappropriate",
+    "reported": "Reported"
   },
   "errors": {
     "genericError": "An error occurred. Please try again later.",
