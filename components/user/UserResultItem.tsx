@@ -138,4 +138,7 @@ export const UserResultItem = forwardRef<HTMLDivElement, ItemProps>((props, ref)
     );
 });
 
+
+UserResultItem.displayName = 'UserResultItem';
+
 export default UserResultItem

@@ -52,7 +52,7 @@ export const MessageBox = () => {
     };
 
     const willDisableSubmitButton = useMemo(() => {
-        return errors.content || !content || content.trim() === '';
+        return !!errors.content || !content || content.trim() === '';
     }, [errors.content, content]);
 
     return (

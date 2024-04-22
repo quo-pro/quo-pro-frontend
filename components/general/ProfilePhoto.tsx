@@ -30,7 +30,7 @@ export const ProfilePhoto = ({ user, className, ...rest }: Partial<Props>) => {
                         <AvatarImage src={user?.profilePhoto} />
                         <AvatarFallback className='uppercase'>{fallback}</AvatarFallback>
                     </Avatar> :
-                    <CircleUser className="h-5 w-5" {...rest} />
+                    <CircleUser className="h-5 w-5" />
             }
         </Button>
     )

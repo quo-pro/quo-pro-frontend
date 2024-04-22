@@ -33,4 +33,6 @@ const NotificationItem = forwardRef<HTMLDivElement, ItemProps>((props, ref) => {
     );
 });
 
+NotificationItem.displayName = 'NotificationItem';
+
 export default NotificationItem

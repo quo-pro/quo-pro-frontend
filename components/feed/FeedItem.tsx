@@ -55,4 +55,6 @@ const FeedItem = forwardRef<HTMLDivElement, ItemProps>((props, ref) => {
     );
 });
 
+FeedItem.displayName = 'FeedItem';
+
 export default FeedItem

@@ -92,4 +92,6 @@ const FriendResultItem = forwardRef<HTMLDivElement, ItemProps>(({ isLast, ...pro
     );
 });
 
+FriendResultItem.displayName = 'FriendResultItem';
+
 export default FriendResultItem
