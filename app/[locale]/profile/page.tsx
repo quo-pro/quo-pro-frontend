@@ -19,13 +19,14 @@ import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
 import { useTranslations } from 'next-intl';
 import { useUpdateUser } from '@app/resources/user/mutation';
+import { Loader } from 'lucide-react';
 
 const Profile = () => {
   const translate = useTranslations("general");
   const tErrors = useTranslations("errors");
 
   const { data: user } = useGetLoggedInUser();
-  const { mutateAsync: updateUser } = useUpdateUser()
+  const { mutateAsync: updateUser, isLoading } = useUpdateUser()
 
   const FormSchema = z.object({
     statusMessage: z
@@ -96,7 +97,7 @@ const Profile = () => {
               </FormItem>
             )}
           />
-          <Button type="submit">{translate("update")}</Button>
+          <Button type="submit">{isLoading && <Loader className='animate-spin mr-1' />} {translate("update")}</Button>
         </form>
       </Form>
     </div>

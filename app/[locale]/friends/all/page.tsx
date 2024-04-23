@@ -1,16 +1,17 @@
 "use client";
-import { useGetPublicUsers } from '@app/resources/user/queries';
+import { useGetUsers } from '@app/resources/user/queries';
 import UserResultItem from '@components/user/UserResultItem';
+import { useTranslations } from 'next-intl';
 import { useRef, useCallback, useMemo } from 'react';
 
-const Public = () => {
+const AllUsers = () => {
+    const translate = useTranslations("general");
     const {
         data: userListData,
-        isLoading,
         isFetchingNextPage,
         fetchNextPage,
         hasNextPage
-    } = useGetPublicUsers({}, { suspense: false });
+    } = useGetUsers({}, { suspense: false });
 
     const users = useMemo(() => {
         return userListData?.pages.flatMap(page => page.data) || [];
@@ -29,7 +30,9 @@ const Public = () => {
     }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
     return (
-        <div className="flex flex-col max-w-lg justify-center mx-auto w-full relative gap-2">
+        <div className="flex flex-col max-w-lg justify-center mx-auto w-full relative gap-4">
+            <p className='text-sm font-semibold'>{translate("suggestions")}</p>
+
             {users.map((user, index) => (
                 <UserResultItem
                     key={user._id}
@@ -41,4 +44,4 @@ const Public = () => {
     )
 }
 
-export default Public
+export default AllUsers

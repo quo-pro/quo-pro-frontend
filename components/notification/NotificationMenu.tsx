@@ -10,6 +10,8 @@ import NotificationItem from './NotificationItem';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Terminal } from 'lucide-react';
 import { useSocket } from '@utils/hooks/useWebSocket/useWebSocket';
+import { queryClient } from '@lib/queryConfig';
+import { userQueryKeys } from '@app/resources/user/queries';
 
 const Trigger = () => (
     <Button variant="secondary" size="icon" className="rounded-full">
@@ -48,11 +50,13 @@ const NotificationMenu = () => {
     const { } = useSocket({
         onEventReceived: (data: any) => {
             refetch();
+            queryClient.invalidateQueries({
+                queryKey: userQueryKeys.all,
+            });
 
             if (data.type !== 'GHOST') {
                 setCount(value => (value + 1));
             }
-
         }
     });
 

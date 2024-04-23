@@ -22,16 +22,18 @@ export const FriendList = () => {
     }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
     return (
-        <div>
-            {friends.map((friend, index) => (
-                <FriendResultItem
-                    isLast={friends.length - 1 === index}
-                    key={friend._id}
-                    ref={index === friends.length - 1 ? lastElementRef : null}
-                    {...friend} />
-            ))}
-            {isFetchingNextPage && <p>Loading more...</p>}
-            {isLoading && <p>Loading friends...</p>}
-        </div>
+        <>
+            <div>
+                {friends.map((friend, index) => (
+                    <FriendResultItem
+                        isLast={friends.length - 1 === index}
+                        key={friend._id}
+                        ref={index === friends.length - 1 ? lastElementRef : null}
+                        {...friend} />
+                ))}
+                {isFetchingNextPage && <p>Loading more...</p>}
+                {isLoading && <p>Loading friends...</p>}
+            </div>
+        </>
     );
 };

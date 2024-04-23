@@ -8,6 +8,7 @@ import { toast } from '@components/ui/use-toast';
 import { timeAgoShort } from '@lib/utils';
 import { IPost } from '@quo-pro/commons'
 import { Ellipsis, Heart, MessageCircle, Send } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import React, { forwardRef } from 'react'
@@ -16,6 +17,7 @@ interface ItemProps extends IPost {
     isLast: boolean;
 }
 const FeedItem = forwardRef<HTMLDivElement, ItemProps>((props, ref) => {
+    const session = useSession()
     const translate = useTranslations("general");
     const tErrors = useTranslations("errors");
     const { mutateAsync: flagContent } = useCreateFlaggedContent()
@@ -78,20 +80,21 @@ const FeedItem = forwardRef<HTMLDivElement, ItemProps>((props, ref) => {
                         </div>
                     </div>
                 </div>
+                {
+                    session?.status === 'authenticated' &&
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon" >
+                                <Ellipsis className='text-gray-300 w-4' />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-56">
+                            <DropdownMenuItem onClick={onFlagContent}>
+                                <p className='text-red-800'> {translate("flagAsInappropriate")}</p>
+                            </DropdownMenuItem>
 
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" >
-                            <Ellipsis className='text-gray-300 w-4' />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56">
-                        <DropdownMenuItem onClick={onFlagContent}>
-                            <p className='text-red-800'> {translate("flagAsInappropriate")}</p>
-                        </DropdownMenuItem>
-
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                        </DropdownMenuContent>
+                    </DropdownMenu>}
             </div>
 
             {!props.isLast && <Separator />}

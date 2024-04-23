@@ -14,6 +14,7 @@ import { useLocalStorage } from '@utils/hooks/useLocalStorage';
 import { v4 as uuidv4 } from 'uuid';
 import { Separator } from '@components/ui/separator';
 import { ProfilePhoto } from '@components/general/ProfilePhoto';
+import { Loader, Loader2 } from 'lucide-react';
 
 type TSchema = Pick<TCredentials, 'userName'>;
 
@@ -124,8 +125,12 @@ const Authenticate = ({ children }: { children: React.ReactNode }) => {
             />
             {errors.userName && <span className='text-xs  text-red-500'>{tErrors('requiredField')}</span>}
           </div>
+
+
           <DialogFooter>
-            <Button type="submit">{translate("submitButton")}</Button>
+            <Button type="submit" disabled={signUpIsLoading || loginIsLoading}>
+              {(signUpIsLoading || loginIsLoading) && <Loader className='animate-spin mr-1' />} {translate("submitButton")}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

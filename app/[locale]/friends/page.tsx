@@ -6,7 +6,7 @@ import { FriendList } from '@components/user/FriendList';
 const Friends = () => {
   return (
     <div className="flex flex-col max-w-lg justify-center mx-auto w-full relative">
-      <div className='absolute w-full top-0'>
+      <div className='absolute w-full top-0 z-50'>
         <SearchUser />
       </div>
       <div className='mt-20'>

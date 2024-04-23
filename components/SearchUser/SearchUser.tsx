@@ -1,7 +1,7 @@
 "use client";
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import debounce from 'lodash/debounce';
-import { useGetUsers } from '@app/resources/user/queries';
+import { useGetFriends, useGetUsers } from '@app/resources/user/queries';
 import { UserResultItem } from '@components/user/UserResultItem';
 import { useTranslations } from 'next-intl';
 import {
@@ -19,6 +19,12 @@ export const SearchUser = () => {
     const translate = useTranslations("general");
     const [search_value, setSearchValue] = useState<string>('');
     const [groupVisibility, setGroupVisibility] = useState<boolean>(false);
+    const { data: friends } = useGetFriends({}, {});
+
+    const hasFriends = useMemo(() => {
+        const list = friends?.pages.flatMap(page => page.data) || [];
+        return list.length > 0;
+    }, [friends]);
 
     const debouncedSetSearchValue = useCallback(debounce(value => {
         setSearchValue(value);
@@ -31,7 +37,7 @@ export const SearchUser = () => {
         isFetchingNextPage,
         fetchNextPage,
         hasNextPage
-    } = useGetUsers({ search_value }, { suspense: false, enabled: Boolean(search_value) });
+    } = useGetUsers({ search_value }, { suspense: false });
 
     const users = useMemo(() => {
         return userListData?.pages.flatMap(page => page.data) || [];
@@ -55,8 +61,9 @@ export const SearchUser = () => {
     });
 
     const shouldOpenGroupContainer = useMemo(() => {
+        if (!hasFriends) return true;
         return search_value && groupVisibility;
-    }, [groupVisibility, search_value])
+    }, [groupVisibility, search_value, hasFriends])
 
     return (
         <Command ref={commandRef} className={`rounded-lg border ${shouldOpenGroupContainer ? 'shadow-md' : ''}`}>
@@ -68,7 +75,7 @@ export const SearchUser = () => {
             {isLoading && <CommandLoading />}
             <CommandList>
                 {users.length === 0 && search_value && !isLoading && <CommandEmpty>{translate("noResult")}</CommandEmpty>}
-                <CommandGroup className={`${shouldOpenGroupContainer ? '' : 'hidden'}`}>
+                <CommandGroup heading={translate("suggestions")} className={`${shouldOpenGroupContainer ? '' : 'hidden'}`}>
                     {users.map((user, index) => (
                         <CommandItem key={user._id} value={`${user.displayName}`}>
                             <UserResultItem
@@ -79,8 +86,8 @@ export const SearchUser = () => {
                     ))}
                 </CommandGroup>
             </CommandList>
-            {isFetchingNextPage && <p>Loading more...</p>}
-            {isLoading && <p>Loading friends...</p>}
+            {isFetchingNextPage && <p className='text-xs font-light m-4'>Loading more...</p>}
+            {isLoading && <p className='text-xs font-light m-4'>Loading suggestions...</p>}
         </Command>
     );
 };

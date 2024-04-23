@@ -1,3 +1,4 @@
+import { Loader } from 'lucide-react';
 import React from 'react';
 
 const Loading = () => {
@@ -8,6 +9,7 @@ const Loading = () => {
     >
       <div className='flex items-center flex-col gap-4'>
         <span className='font-montserrat-alt1 font-semibold'>
+          <Loader className='animate-spin mr-1' />
           Please wait...
         </span>
       </div>

@@ -9,11 +9,11 @@ import { SVG } from '@components/svgs/SVG';
 import { useGetLoggedInUser } from '@app/resources/user/queries';
 import { IUser } from '@quo-pro/commons';
 import { MessageBox } from '@components/messageBox/MessageBox';
-import { useSession } from 'next-auth/react';
+import { Loader } from 'lucide-react';
 
 const NewPost = () => {
     const translate = useTranslations("general");
-    const { data: loggedInUserData } = useGetLoggedInUser();
+    const { data: loggedInUserData, isLoading } = useGetLoggedInUser();
 
     const loggedInUser = useMemo(() => {
         return loggedInUserData as IUser
@@ -30,7 +30,7 @@ const NewPost = () => {
                         </div>
 
                         <Button className='rounded-full' size="sm">
-                            {translate("post")}
+                            {isLoading && <Loader className='animate-spin mr-1' />} {translate("post")}
                         </Button>
                     </div>
                     <Separator />

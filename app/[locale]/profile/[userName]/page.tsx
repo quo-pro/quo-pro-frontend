@@ -75,21 +75,23 @@ export default function SingleUser({ params: { userName }, }: { params: { userNa
 
             <p className='text-sm'>{profileData.statusMessage}</p>
 
-            <div className='flex justify-end'>
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" >
-                            <Ellipsis className='text-gray-400' />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56">
-                        <DropdownMenuItem onClick={onBlockUser}>
-                            <p className='text-red-800'> {translate("block")}</p>
-                        </DropdownMenuItem>
+            {
+                session?.status === 'authenticated' && <div className='flex justify-end'>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon" >
+                                <Ellipsis className='text-gray-400' />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-56">
+                            <DropdownMenuItem onClick={onBlockUser}>
+                                <p className='text-red-800'> {translate("block")}</p>
+                            </DropdownMenuItem>
 
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </div>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
+            }
 
             <Separator />
             <p className='font-bold'>{translate("posts")}</p>
