@@ -69,14 +69,14 @@ const Profile = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center max-w-lg mx-auto w-full">
       <div className='flex flex-col justify-center items-center p-4'>
         <ProfilePhoto user={user} className='h-8 w-8' />
         <p className='capitalize text-sm mt-2'>{user?.displayName}</p>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
           <FormField
             control={form.control}
             name="statusMessage"
@@ -97,7 +97,7 @@ const Profile = () => {
               </FormItem>
             )}
           />
-          <Button type="submit">{isLoading && <Loader className='animate-spin mr-1' />} {translate("update")}</Button>
+          <Button type="submit" className='mt-4'>{isLoading && <Loader className='animate-spin mr-1' />} {translate("update")}</Button>
         </form>
       </Form>
     </div>
