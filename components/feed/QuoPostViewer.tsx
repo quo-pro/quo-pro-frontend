@@ -11,7 +11,7 @@ import { createLinkPlugin, ELEMENT_LINK } from '@udecode/plate-link';
 import { createImagePlugin, ELEMENT_IMAGE, createMediaEmbedPlugin, ELEMENT_MEDIA_EMBED } from '@udecode/plate-media';
 import { createExcalidrawPlugin, ELEMENT_EXCALIDRAW } from '@udecode/plate-excalidraw';
 import { createTogglePlugin, ELEMENT_TOGGLE } from '@udecode/plate-toggle';
-import { createColumnPlugin, ELEMENT_COLUMN_GROUP, ELEMENT_COLUMN } from '@udecode/plate-layout';
+import { createColumnPlugin, ELEMENT_COLUMN } from '@udecode/plate-layout';
 import { createCaptionPlugin } from '@udecode/plate-caption';
 import { createMentionPlugin, ELEMENT_MENTION, ELEMENT_MENTION_INPUT } from '@udecode/plate-mention';
 import { createTablePlugin, ELEMENT_TABLE, ELEMENT_TR, ELEMENT_TD, ELEMENT_TH } from '@udecode/plate-table';
@@ -34,9 +34,6 @@ import { createResetNodePlugin } from '@udecode/plate-reset-node';
 import { createDeletePlugin } from '@udecode/plate-select';
 import { createTabbablePlugin } from '@udecode/plate-tabbable';
 import { createTrailingBlockPlugin } from '@udecode/plate-trailing-block';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-
 import { BlockquoteElement } from '@/components/plate-ui/blockquote-element';
 import { CodeBlockElement } from '@/components/plate-ui/code-block-element';
 import { CodeLineElement } from '@/components/plate-ui/code-line-element';
@@ -46,8 +43,7 @@ import { HrElement } from '@/components/plate-ui/hr-element';
 import { ImageElement } from '@/components/plate-ui/image-element';
 import { LinkElement } from '@/components/plate-ui/link-element';
 import { LinkFloatingToolbar } from '@/components/plate-ui/link-floating-toolbar';
-import { ToggleElement } from '@/components/plate-ui/toggle-element';
-import { ColumnGroupElement } from '@/components/plate-ui/column-group-element';
+
 import { ColumnElement } from '@/components/plate-ui/column-element';
 import { HeadingElement } from '@/components/plate-ui/heading-element';
 import { MediaEmbedElement } from '@/components/plate-ui/media-embed-element';
@@ -225,8 +221,6 @@ const plugins = createPlugins(
             [ELEMENT_HR]: HrElement,
             [ELEMENT_IMAGE]: ImageElement,
             [ELEMENT_LINK]: LinkElement,
-            [ELEMENT_TOGGLE]: ToggleElement,
-            [ELEMENT_COLUMN_GROUP]: ColumnGroupElement,
             [ELEMENT_COLUMN]: ColumnElement,
             [ELEMENT_H1]: withProps(HeadingElement, { variant: 'h1' }),
             [ELEMENT_H2]: withProps(HeadingElement, { variant: 'h2' }),
