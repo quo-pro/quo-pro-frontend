@@ -1,6 +1,7 @@
 import { useGetPosts } from '@app/resources/post/queries';
 import React, { useCallback, useMemo, useRef } from 'react'
 import FeedItem from './FeedItem';
+import FeedItemWithQuoViewer from './FeedItemWithQuoViewer';
 
 export const FeedList = () => {
     const {
@@ -29,7 +30,7 @@ export const FeedList = () => {
     return (
         <div className='flex flex-col gap-4'>
             {list.map((feed, index) => (
-                <FeedItem
+                <FeedItemWithQuoViewer
                     isLast={list.length - 1 === index}
                     key={feed._id}
                     ref={index === list.length - 1 ? lastElementRef : null}

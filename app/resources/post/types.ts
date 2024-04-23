@@ -10,10 +10,9 @@ export type TPostQuery = Partial<
   }
 >;
 
-export type TUpsertPost = Omit<
+export type TUpsertPost = Pick<
   IPost,
   | '_id'
-  | 'createdAt'
-  | 'updatedAt'
-  | 'user'
+  | 'editorContent'
+  | 'visibility'
 >;

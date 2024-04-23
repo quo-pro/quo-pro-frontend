@@ -5,7 +5,7 @@ import { postQueryKeys } from './queries';
 import { apiHttp, apiRoutes } from '@lib/axiosHttp';
 import { IPost } from '@quo-pro/commons';
 
-async function createPost(payload: TUpsertPost) {
+async function createPost(payload: Omit<TUpsertPost, '_id'>) {
   return apiHttp.post<IPost>(apiRoutes.posts, payload);
 }
 

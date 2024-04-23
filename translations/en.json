@@ -70,7 +70,8 @@
     "status": "Status",
     "block": "Block",
     "flagAsInappropriate": "Flag as inappropriate",
-    "reported": "Reported"
+    "reported": "Reported",
+    "editorPlaceholder": "✨ In the silence before creation, words hold the power to shape universes. What echoes will your thoughts leave in the fabric of reality today?"
   },
   "errors": {
     "genericError": "An error occurred. Please try again later.",

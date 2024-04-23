@@ -36,10 +36,12 @@ const NewPost = () => {
                     <Separator />
                 </div>
             </DialogTrigger>
+
             <DialogContent className="w-full h-full md:h-auto md:rounded-2xl flex flex-col gap-8" closeButtonStyle=''>
                 <DialogHeader className='md:hidden'>
                     <DialogTitle>{translate("newQuo")}</DialogTitle>
                 </DialogHeader>
+
                 <div className='flex flex-row gap-4 h-full w-full'>
                     <div className='flex flex-col justify-start items-center h-full'>
                         <SVG.logo className='h-8 w-8' />
