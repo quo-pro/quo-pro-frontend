@@ -23,10 +23,9 @@ export const FriendList = () => {
 
     return (
         <>
-            <div>
+            <div className='flex flex-col gap-2'>
                 {friends.map((friend, index) => (
                     <FriendResultItem
-                        isLast={friends.length - 1 === index}
                         key={friend._id}
                         ref={index === friends.length - 1 ? lastElementRef : null}
                         {...friend} />

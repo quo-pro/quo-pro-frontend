@@ -4,20 +4,17 @@ import { useTranslations } from 'next-intl';
 import { ProfilePhoto } from '@components/general/ProfilePhoto';
 import { Button } from '@components/ui/button';
 import { useUnFriendUser, useUnblockUser } from '@app/resources/user/mutation';
-import { Separator } from '@components/ui/separator';
 import { toast } from '@components/ui/use-toast';
 import Link from 'next/link';
 import NAVIGATION from '@app/navigations/navigation';
 
-interface ItemProps extends IUser {
-    isLast: boolean
-}
+interface ItemProps extends IUser { }
 type TUser = IUser & {
     isFollower: boolean;
     isFollowing: boolean;
     isBlocked: string;
 }
-const FriendResultItem = forwardRef<HTMLDivElement, ItemProps>(({ isLast, ...props }, ref) => {
+const FriendResultItem = forwardRef<HTMLDivElement, ItemProps>((props, ref) => {
     const user = props as TUser;
     const translate = useTranslations("general");
     const tErrors = useTranslations("errors");
@@ -109,27 +106,23 @@ const FriendResultItem = forwardRef<HTMLDivElement, ItemProps>(({ isLast, ...pro
     }, [user.isFollower, user.isFollowing])
 
     return (
-        <>
-            <Link href={`${NAVIGATION.PROFILE}/${props.userName}`}>
-                <div ref={ref} className='flex flex-row items-center justify-between w-full'>
-                    <div className='flex flex-row gap-2'>
-                        <ProfilePhoto className='h-6 w-6' user={props} />
-                        <div>
-                            <p className='font-semibold'>{props.userName}</p>
-                            <p className='capitalize text-gray-500 text-xs'>{props.displayName}</p>
-                        </div>
+        <Link href={`${NAVIGATION.PROFILE}/${props.userName}`}>
+            <div ref={ref} className='flex flex-row items-center justify-between w-full'>
+                <div className='flex flex-row gap-2'>
+                    <ProfilePhoto className='h-6 w-6' user={props} />
+                    <div>
+                        <p className='font-semibold'>{props.userName}</p>
+                        <p className='capitalize text-gray-500 text-xs'>{props.displayName}</p>
                     </div>
-
-                    <Button
-                        onClick={onButtonClick}
-                        className='rounded-full' size="sm" variant="outline">
-                        {buttonTranslation}
-                    </Button>
                 </div>
-            </Link>
 
-            {!isLast && <Separator />}
-        </>
+                <Button
+                    onClick={onButtonClick}
+                    className='rounded-full' size="sm" variant="outline">
+                    {buttonTranslation}
+                </Button>
+            </div>
+        </Link>
     );
 });
 
