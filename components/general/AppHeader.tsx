@@ -19,7 +19,7 @@ export const AppHeader = () => {
                 </Link>
             </nav>
 
-            <nav className="justify-center w-full gap-6 text-lg font-medium flex flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
+            <nav className="justify-center w-full gap-2text-lg font-medium flex flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                 {
                     RIGHT_HEADER_ROUTES.map(r => (
                         <MenuLink key={r.label + r.route} {...r} />

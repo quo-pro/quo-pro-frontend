@@ -50,57 +50,56 @@ const FeedItemWithQuoViewer = forwardRef<HTMLDivElement, ItemProps>((props, ref)
 
     return (
         <>
-            <div className='flex flex-row justify-between'>
-                <div className='flex flex-col'>
-                    <div className='flex flex-row gap-4'>
-                        <Link href={`/${NAVIGATION.PROFILE}/${props.user.userName}`}>
-                            <ProfilePhoto user={props.user} />
-                        </Link>
-                        <div>
-                            <div className='flex flex-row items-center gap-2'>
-                                <span className='font-semibold text-sm'>{props.user.userName}</span>
-                                <span className='text-sm text-gray-400'>{timeAgoShort(props.createdAt)}</span>
-                            </div>
-                            <p className='font-light text-sm leading-tight' style={{ fontSize: '.8rem' }}>{props.user.statusMessage}</p>
+            <div className='flex flex-row items-baseline'>
+                <div className='flex flex-row gap-4'>
+                    <Link href={`/${NAVIGATION.PROFILE}/${props.user.userName}`}>
+                        <ProfilePhoto user={props.user} />
+                    </Link>
+                    <div>
+                        <div className='flex flex-row items-center gap-2'>
+                            <span className='font-semibold text-sm'>{props.user.userName}</span>
+                            <span className='text-sm text-gray-400'>{timeAgoShort(props.createdAt)}</span>
                         </div>
+                        <p className='font-light text-sm leading-tight line-clamp-2' style={{ fontSize: '.8rem' }}>{props.user.statusMessage}</p>
                     </div>
-
-                    <div className='flex flex-col gap-1 h-full'>
-                        <QuoPostViewer initialValue={props.editorContent} />
-                        <div className='flex flex-row -ml-2'>
-                            <Button size="icon" variant="ghost" className='rounded-full'>
-                                <Heart className='h-4 w-4' />
-                            </Button>
-                            <Button size="icon" variant="ghost" className='rounded-full'>
-                                <MessageCircle className='h-4 w-4' />
-                            </Button>
-                            <Button size="icon" variant="ghost" className='rounded-full '>
-                                <Send className='h-4 w-4' />
-                            </Button>
-                        </div>
-                        <p className='text-xs text-gray-400'>
-                            {props.likeCount > 0 && <span>{translate("likes")} {props.likeCount}</span>}
-                            {props.commentCount > 0 && <span className='mx-2'>&#183;</span>}
-                            {props.commentCount > 0 && <span>{translate("comments")} {props.commentCount}</span>}
-                        </p>
-                    </div>
-
                 </div>
+
                 {
                     session?.status === 'authenticated' &&
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon" >
-                                <Ellipsis className='text-gray-300 w-4' />
+                            <Button variant="ghost" size="icon" className='w-4 h-4'>
+                                <Ellipsis className='text-gray-300' />
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-56">
+                        <DropdownMenuContent>
                             <DropdownMenuItem onClick={onFlagContent}>
                                 <p className='text-red-800'> {translate("flagAsInappropriate")}</p>
                             </DropdownMenuItem>
 
                         </DropdownMenuContent>
-                    </DropdownMenu>}
+                    </DropdownMenu>
+                }
+            </div>
+
+            <div className='flex flex-col gap-1 h-full'>
+                <QuoPostViewer initialValue={props.editorContent} />
+                <div className='flex flex-row -ml-2'>
+                    <Button size="icon" variant="ghost" className='rounded-full'>
+                        <Heart className='h-4 w-4' />
+                    </Button>
+                    <Button size="icon" variant="ghost" className='rounded-full'>
+                        <MessageCircle className='h-4 w-4' />
+                    </Button>
+                    <Button size="icon" variant="ghost" className='rounded-full '>
+                        <Send className='h-4 w-4' />
+                    </Button>
+                </div>
+                <p className='text-xs text-gray-400'>
+                    {props.likeCount > 0 && <span>{translate("likes")} {props.likeCount}</span>}
+                    {props.commentCount > 0 && <span className='mx-2'>&#183;</span>}
+                    {props.commentCount > 0 && <span>{translate("comments")} {props.commentCount}</span>}
+                </p>
             </div>
 
             {!props.isLast && <Separator />}

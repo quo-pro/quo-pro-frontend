@@ -10,7 +10,7 @@ import { createHorizontalRulePlugin, ELEMENT_HR } from '@udecode/plate-horizonta
 import { createLinkPlugin, ELEMENT_LINK } from '@udecode/plate-link';
 import { createImagePlugin, ELEMENT_IMAGE, createMediaEmbedPlugin, ELEMENT_MEDIA_EMBED } from '@udecode/plate-media';
 import { createExcalidrawPlugin, ELEMENT_EXCALIDRAW } from '@udecode/plate-excalidraw';
-import { createTogglePlugin, ELEMENT_TOGGLE } from '@udecode/plate-toggle';
+import { createTogglePlugin } from '@udecode/plate-toggle';
 import { createColumnPlugin, ELEMENT_COLUMN } from '@udecode/plate-layout';
 import { createCaptionPlugin } from '@udecode/plate-caption';
 import { createMentionPlugin, ELEMENT_MENTION, ELEMENT_MENTION_INPUT } from '@udecode/plate-mention';
@@ -58,7 +58,6 @@ import { CodeLeaf } from '@/components/plate-ui/code-leaf';
 import { HighlightLeaf } from '@/components/plate-ui/highlight-leaf';
 import { KbdLeaf } from '@/components/plate-ui/kbd-leaf';
 import { Editor } from '@/components/plate-ui/editor';
-import { withPlaceholders } from '@/components/plate-ui/placeholder';
 
 const plugins = createPlugins(
     [
@@ -212,7 +211,7 @@ const plugins = createPlugins(
         }),
     ],
     {
-        components: withPlaceholders({
+        components: {
             [ELEMENT_BLOCKQUOTE]: BlockquoteElement,
             [ELEMENT_CODE_BLOCK]: CodeBlockElement,
             [ELEMENT_CODE_LINE]: CodeLineElement,
@@ -246,7 +245,7 @@ const plugins = createPlugins(
             [MARK_SUBSCRIPT]: withProps(PlateLeaf, { as: 'sub' }),
             [MARK_SUPERSCRIPT]: withProps(PlateLeaf, { as: 'sup' }),
             [MARK_UNDERLINE]: withProps(PlateLeaf, { as: 'u' }),
-        })
+        }
     }
 );
 

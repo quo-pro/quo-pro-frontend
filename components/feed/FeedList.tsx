@@ -1,6 +1,5 @@
 import { useGetPosts } from '@app/resources/post/queries';
 import React, { useCallback, useMemo, useRef } from 'react'
-import FeedItem from './FeedItem';
 import FeedItemWithQuoViewer from './FeedItemWithQuoViewer';
 
 export const FeedList = () => {

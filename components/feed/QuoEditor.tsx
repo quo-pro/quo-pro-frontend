@@ -10,8 +10,8 @@ import { createHorizontalRulePlugin, ELEMENT_HR } from '@udecode/plate-horizonta
 import { createLinkPlugin, ELEMENT_LINK } from '@udecode/plate-link';
 import { createImagePlugin, ELEMENT_IMAGE, createMediaEmbedPlugin, ELEMENT_MEDIA_EMBED } from '@udecode/plate-media';
 import { createExcalidrawPlugin, ELEMENT_EXCALIDRAW } from '@udecode/plate-excalidraw';
-import { createTogglePlugin, ELEMENT_TOGGLE } from '@udecode/plate-toggle';
-import { createColumnPlugin, ELEMENT_COLUMN_GROUP, ELEMENT_COLUMN } from '@udecode/plate-layout';
+import { createTogglePlugin } from '@udecode/plate-toggle';
+import { createColumnPlugin, ELEMENT_COLUMN } from '@udecode/plate-layout';
 import { createCaptionPlugin } from '@udecode/plate-caption';
 import { createMentionPlugin, ELEMENT_MENTION, ELEMENT_MENTION_INPUT } from '@udecode/plate-mention';
 import { createTablePlugin, ELEMENT_TABLE, ELEMENT_TR, ELEMENT_TD, ELEMENT_TH } from '@udecode/plate-table';
@@ -59,16 +59,16 @@ import { CodeLeaf } from '@/components/plate-ui/code-leaf';
 import { HighlightLeaf } from '@/components/plate-ui/highlight-leaf';
 import { KbdLeaf } from '@/components/plate-ui/kbd-leaf';
 import { Editor } from '@/components/plate-ui/editor';
-import { FloatingToolbar } from '@/components/plate-ui/floating-toolbar';
-import { FloatingToolbarButtons } from '@/components/plate-ui/floating-toolbar-buttons';
 import { withPlaceholders } from '@/components/plate-ui/placeholder';
 import { withDraggables } from '@/components/plate-ui/with-draggables';
 import { Button } from '@components/ui/button';
 import { useState } from 'react';
-import { DialogClose, DialogHeader } from '@components/ui/dialog';
+import { DialogClose, DialogFooter, DialogHeader } from '@components/ui/dialog';
 import { useTranslations } from 'next-intl';
 import { SVG } from '@components/svgs/SVG';
 import { POST_VISIBILITY_TYPE } from '@quo-pro/commons';
+import { FixedToolbar } from '@components/plate-ui/fixed-toolbar';
+import { FixedToolbarButtons } from '@components/plate-ui/fixed-toolbar-buttons';
 
 const plugins = createPlugins(
     [
@@ -222,7 +222,7 @@ const plugins = createPlugins(
         }),
     ],
     {
-        components: withDraggables(withPlaceholders({
+        components: withDraggables({
             [ELEMENT_BLOCKQUOTE]: BlockquoteElement,
             [ELEMENT_CODE_BLOCK]: CodeBlockElement,
             [ELEMENT_CODE_LINE]: CodeLineElement,
@@ -256,12 +256,11 @@ const plugins = createPlugins(
             [MARK_SUBSCRIPT]: withProps(PlateLeaf, { as: 'sub' }),
             [MARK_SUPERSCRIPT]: withProps(PlateLeaf, { as: 'sup' }),
             [MARK_UNDERLINE]: withProps(PlateLeaf, { as: 'u' }),
-        })),
+        }),
     }
 );
 
 interface Props {
-    initialValue: Array<any>;
     maxLength?: number;
     readOnly?: boolean;
     onEditDone?: (content: any[], visibility: POST_VISIBILITY_TYPE) => void
@@ -269,7 +268,7 @@ interface Props {
 }
 export function QuoEditor(props: Props) {
     const [visibility, setVisibility] = useState<POST_VISIBILITY_TYPE>('PUBLIC');
-    const { onEditDone, readOnly = false, initialValue, maxLength = 2000, isLoading } = props;
+    const { onEditDone, readOnly = false, maxLength = 2000, isLoading } = props;
     const [content, setContent] = useState<any[]>([]);
     const translate = useTranslations("general");
 
@@ -285,10 +284,10 @@ export function QuoEditor(props: Props) {
                 maxLength={maxLength}
                 readOnly={readOnly}
                 plugins={plugins}
-                initialValue={initialValue}
                 onChange={(content) => setContent(content)}
+
             >
-                <DialogHeader className='sticky top-0 bg-white flex flex-row justify-between items-center p-4'>
+                <DialogHeader className='sticky z-50 -top-1 bg-white flex flex-row justify-between items-center p-4'>
                     <SVG.logo className='h-8 w-8' />
                     <DialogClose asChild>
                         <Button
@@ -304,11 +303,13 @@ export function QuoEditor(props: Props) {
                 </DialogHeader>
 
                 <Editor
-                    className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-none focus-visible:outline-none border-none outline-none focus-within:ring-0 ring-0 h-full"
+                    placeholder={translate("editorPlaceholder")}
+                    className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-none focus-visible:outline-none border-none outline-none focus-within:ring-0 ring-0 h-full min-h-40"
                 />
-                <FloatingToolbar>
-                    <FloatingToolbarButtons />
-                </FloatingToolbar>
+
+                <FixedToolbar className='sticky bottom-0'>
+                    <FixedToolbarButtons />
+                </FixedToolbar>
             </Plate>
         </DndProvider>
     );

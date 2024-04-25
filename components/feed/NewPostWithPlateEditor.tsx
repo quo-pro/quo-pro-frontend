@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useTranslations } from 'next-intl';
@@ -16,13 +16,6 @@ const NewPostWithPlateEditor = () => {
     const tErrors = useTranslations('errors');
     const translate = useTranslations("general");
     const { isLoading } = useGetLoggedInUser();
-    const [content] = useState([
-        {
-            id: '1',
-            type: 'span',
-            children: [{ text: translate("editorPlaceholder") }],
-        },
-    ]);
     const { mutateAsync: createPost, isLoading: createPostIsProgress } = useCreatePost();
 
     const handleSave = async (editorContent: any[], visibility: POST_VISIBILITY_TYPE) => {
@@ -71,8 +64,8 @@ const NewPostWithPlateEditor = () => {
             </DialogTrigger>
 
             <DialogContent className="p-0 w-full h-full md:h-auto max-h-screen md:max-h-[calc(100vh-100px)] flex flex-col gap-8 overflow-hidden overflow-y-auto" closeButtonStyle='hidden'>
-                <div className='mt-0 overflow-y-auto thin-scrollbar'>
-                    <QuoEditor initialValue={content} onEditDone={handleSave} isLoading={createPostIsProgress} />
+                <div className='mt-0 overflow-y-auto thin-scrollbar max-h-screen h-full'>
+                    <QuoEditor onEditDone={handleSave} isLoading={createPostIsProgress} />
                 </div>
             </DialogContent>
         </Dialog>

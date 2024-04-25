@@ -1,6 +1,7 @@
 import React, { ComponentType, ReactElement, useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import Authenticate from '@components/authentication/Authenticate';
+import { Loader } from 'lucide-react';
 
 interface AuthFallbackProps {
     Component: ComponentType<any>;
@@ -18,7 +19,7 @@ function withAuthFallback({ Component, Fallback }: AuthFallbackProps): Component
 
         if (!clientLoaded) {
 
-            return <div>Loading...</div>;
+            return <Loader className='animate-spin mr-1' />
         }
 
         if (status === 'authenticated') {
