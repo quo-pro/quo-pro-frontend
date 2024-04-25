@@ -24,7 +24,6 @@ import { Loader } from 'lucide-react';
 const Profile = () => {
   const translate = useTranslations("general");
   const tErrors = useTranslations("errors");
-
   const { data: user } = useGetLoggedInUser();
   const { mutateAsync: updateUser, isLoading } = useUpdateUser()
 
@@ -41,6 +40,7 @@ const Profile = () => {
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    defaultValues: { statusMessage: user?.statusMessage },
   });
 
   const onSubmit = async ({ statusMessage }: z.infer<typeof FormSchema>) => {
