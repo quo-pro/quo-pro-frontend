@@ -50,7 +50,7 @@ const FeedItemWithQuoViewer = forwardRef<HTMLDivElement, ItemProps>((props, ref)
 
     return (
         <>
-            <div className='flex flex-row items-baseline'>
+            <div className='flex flex-row items-baseline justify-between'>
                 <div className='flex flex-row gap-4'>
                     <Link href={`/${NAVIGATION.PROFILE}/${props.user.userName}`}>
                         <ProfilePhoto user={props.user} />
